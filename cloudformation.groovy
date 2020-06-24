@@ -7,7 +7,7 @@ def cloudFormationJobs =
 
 cloudFormationJobs.each {
 
-    job(it['name']) {
+    job('jenkins-cfn') {
         scm {
             git(gitUrl)
         }
