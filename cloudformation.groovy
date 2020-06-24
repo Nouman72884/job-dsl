@@ -1,3 +1,6 @@
+def AWS_ROLE = "arn:aws:iam::020046395185:role/adminrole"
+def AWS_ID = "bfae2336-7b83-4046-8ef2-98f5b4c88975"
+def AWS_REGION = "us-east-1"
 job('jenkins-cfn') {
     scm {
         git('git://github.com/Nouman72884/cloudformation-demo.git') {  node -> // is hudson.plugins.git.GitSCM
@@ -7,7 +10,7 @@ job('jenkins-cfn') {
     triggers {
         scm('*/5 * * * *')
         }
-    withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+    withAWS(region: AWS_REGION, role: AWS_ROLE, credentials: AWS_ID) {
       def response = cfnValidate(file:'s3cft.yaml')
       echo "template description: ${response.description}"
 
