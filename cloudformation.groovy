@@ -9,7 +9,7 @@ job('jenkins-cfn') {
     triggers {
         scm('*/5 * * * *')
         }
-    withAWS(region:AWS_REGION, role:AWS_ROLE, credentials:AWS_ID) {
+    withAWS(region:AWS_REGION, role:AWS_ROLE) {
       def response = cfnValidate(file:'s3cft.yaml')
       echo "template description: ${response.description}"
 
