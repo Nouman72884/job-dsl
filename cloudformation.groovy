@@ -10,8 +10,6 @@ job('jenkins-cfn') {
     triggers {
         scm('*/5 * * * *')
         }
-
-    }
     withAWS(region:AWS_REGION, role:AWS_ROLE, credentials:AWS_ID) {
       def response = cfnValidate(file:'s3cft.yaml')
       echo "template description: ${response.description}"
@@ -19,4 +17,5 @@ job('jenkins-cfn') {
       def outputs = cfnUpdate(stack:'cfn-stack', file:'s3cft.yaml', params:['VpcName=demovpc','ec2Name=noumanec2'], timeoutInMinutes:10)
 
         }
+    }
 }
