@@ -9,12 +9,9 @@ job('jenkins-cfn') {
     triggers {
         scm('*/5 * * * *')
         }
-    withAWS(region:"${AWS_REGION}") {
-        def response = cfnValidate(file:'s3cft.yaml')
-        echo "template description: ${response.description}"
-        def outputs = cfnUpdate(stack:'cfn-stack', file:'s3cft.yaml', params:['VpcName=demovpc','ec2Name=noumanec2'], timeoutInMinutes:10)
-
-        }
+    steps{
+        shell("aws cloudformation create-stack --stack-name myteststack --template-body file:s3cft.yaml --parameters ParameterKey=VpcName,ParameterValue=vpcdemo ParameterKey=ec2Name,ParameterValue=test")
+    }
 
     }
 }
