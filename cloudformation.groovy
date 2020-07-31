@@ -10,7 +10,7 @@ job('jenkins-cfn') {
         scm('*/5 * * * *')
         }
     steps{
-        shell("aws cloudformation create-stack --stack-name myteststack --template-body file:s3cft.yaml --parameters ParameterKey=VpcName,ParameterValue=vpcdemo ParameterKey=ec2Name,ParameterValue=test,region=us-east-1")
+        shell("aws cloudformation create-stack --stack-name myteststack --template-body file:s3cft.yaml --parameters ParameterKey=VpcName,ParameterValue=vpcdemo ParameterKey=ec2Name,ParameterValue=test")
     }
 
     }
